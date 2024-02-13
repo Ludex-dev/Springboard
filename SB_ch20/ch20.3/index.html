@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Giphy Party!</title>
+  </head>
+
+  <body>
+    <!-- action="https://api.giphy.com" method="GET" -->
+    <form id="getRequest">
+      <label>Search:</label>
+      <input placeholder="Find your funnybone?" id="userInput" />
+
+      <button type="submit" id="submit">Submit</button>
+    </form>
+    <gallery id="giphyGallery"> </gallery>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="index.js"></script>
+    <script>
+      // Implement the capture of the GET request response, and then append into the gallery tag. Figure out the organization through flexbox
+
+      const gif = $("#idRequest");
+      const giphyGallery = $("#giphyGallery");
+
+      const userInput = $("#userInput");
+      const submitbtn = $("#submit");
+
+      function hangGif(url) {
+        url.data.data.forEach((gif) => {
+          const div = $(`<div>`);
+          const img = $(`<img>`);
+          img.attr(`src`, gif.images.fixed_height.url);
+          div.append(img);
+
+          div.on("click", function () {
+            $(this).remove();
+          });
+
+          giphyGallery.append(div);
+        });
+      }
+
+      submitbtn.on("click", async function (output) {
+        output.preventDefault();
+        // const url = `https://api.giphy.com/v1/gifs/search?api_key=CXggWJDsgku7pqXl2pPb6Zk2zMdbM1Pi&q=${userInput.val()}&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
+        const response = await axios.get(
+          `https://api.giphy.com/v1/gifs/search`,
+          {
+            params: {
+              api_key: "CXggWJDsgku7pqXl2pPb6Zk2zMdbM1Pi",
+              q: userInput.val(),
+              limit: 1,
+              lang: "en",
+            },
+          }
+        );
+
+        hangGif(response);
+      });
+    </script>
+  </body>
+</html>
