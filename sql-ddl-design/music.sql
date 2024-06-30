@@ -118,6 +118,9 @@ VALUES
   (9, 14),
   (10, 15);
   
+  CREATE INDEX idx_artists_name ON artists (name);
+  CREATE INDEX idx_producers_name ON producers (name);
+  CREATE INDEX idx_albums_name ON albums (name);
   CREATE INDEX idx_songs_title ON songs (title);
   CREATE INDEX idx_songs_release_date ON songs (release_date);
   CREATE INDEX idx_song_artists_song_id ON song_artists (song_id);
