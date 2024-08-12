@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+   User Profile
+{% endblock %}
+
+{% block content %}
+<h1>{{user.first_name}}</h1> 
+<h1>{{user.last_name}}</h1>
+<h1>{{user.profile_pic}}</h1>
+
+
+<a href="/users/{{user.id}}/edit" class="redirect-btn">Edit Profile</a>
+<a href="/users/{{user.id}}/delete"  class="redirect-btn" >Delete</a>
+{% endblock %}
+
